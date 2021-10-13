@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import SectionHero from "../components/SectionHero";
+import Section from "../components/Section";
 import H1 from "../components/shared/typography/H1";
+import H2 from "../components/shared/typography/H2";
 import BodyText from "../components/shared/typography/BodyText";
+import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 export default function Home() {
+	const { scrollYProgress } = useViewportScroll();
 	return (
 		<Container>
 			<LeftWrapper>
@@ -16,6 +20,24 @@ export default function Home() {
 						possible with Paddle.
 					</BodyText>
 				</SectionHero>
+				<ExplanationWrapper>
+					<ProgressBarContainer>
+						<ProgressBarActive
+							style={{
+								scaleY: scrollYProgress,
+							}}
+						/>
+					</ProgressBarContainer>
+					<Section>
+						<H2 mbtm={"1rem"}>Currencies</H2>
+						<BodyText>
+							Paddle supports payments in over 22 currencies and 16 languages.
+							Even better, it takes care of all your tax obligations in those
+							territories, so you can just focus on your product and leave the
+							pain of tax compliance to us.
+						</BodyText>
+					</Section>
+				</ExplanationWrapper>
 			</LeftWrapper>
 			<RightWrapper></RightWrapper>
 		</Container>
@@ -42,4 +64,26 @@ const LeftWrapper = styled.div`
 	display: flex;
 	margin-top: 6rem;
 	justify-content: center;
+	flex-direction: column;
+`;
+
+const ExplanationWrapper = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 3rem;
+`;
+
+const ProgressBarContainer = styled(motion.div)`
+	width: 5px;
+	height: 800px;
+	overflow: hidden;
+	background: #f1f1f1;
+	border-radius: 6px;
+`;
+
+const ProgressBarActive = styled(motion.div)`
+	width: inherit;
+	height: inherit;
+	background: #000000;
+	transform-origin: top;
 `;
